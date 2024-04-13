@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +21,8 @@ import com.evently.app.model.Prestataire;
 import com.evently.app.service.PrestataireService;
 
 @RestController
-@RequestMapping(path="/api/v1/rest" , name = "evently_app")
+@EnableMethodSecurity
+@RequestMapping(path="/api/v1/rest/prestataires" , name = "evently_app")
 
 public class PrestataireController {
 	private PrestataireService prestataireService;
@@ -28,30 +31,31 @@ public class PrestataireController {
 	public PrestataireController(PrestataireService prestataireService) {
 		this.prestataireService = prestataireService;
 	}
-	@PostMapping(path = "/prestataires", name="create")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Prestataire add (@RequestBody Prestataire prestataire) {
-		return this.prestataireService.savePrestataire(prestataire);
-	}
-	
-	@GetMapping(path = "/prestataires",name = "list")
+	//@PostMapping(name="create")
+	//@PreAuthorize("hasAuthority('CLIENT_CREATE')")
+
+	//@PreAuthorize("hasAnyAuthority('ADMINISTRATEUR',CLIENT)")
+	@GetMapping(name = "list")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Prestataire> list(){
 		return this.prestataireService.getAllPrestataires();
 		 
 	}
-	@GetMapping(path = "/prestataires/{id}", name = "read")
+	//@PreAuthorize("hasAnyAuthority('ADMINISTRATEUR',CLIENT)")
+	@GetMapping(path = "/{id}", name = "read")
 	@ResponseStatus(HttpStatus.OK)
 	public Optional<Prestataire> read(@PathVariable Long id){
 		return this.prestataireService.getOnePrestataire(id);
 	}
-	
-	@PutMapping(path = "/prestataires/{id}" , name = "update")
+
+	//@PreAuthorize("hasAuthority('CLIENT')")
+	@PutMapping(path = "/{id}" , name = "update")
 	@ResponseStatus(HttpStatus.OK)
 	public Prestataire update (@RequestBody Prestataire prestataire , @PathVariable Long id) {
 		return this.prestataireService.updatePrestataire(prestataire, id);
 	}
-	@DeleteMapping(path = "/prestataires/{id}" , name = "remove")
+	//@PreAuthorize("hasAnyAuthority('ADMINISTRATEUR',CLIENT)")
+	@DeleteMapping(path = "/{id}" , name = "remove")
 	@ResponseStatus(HttpStatus.NO_CONTENT )
 	public void remove(@PathVariable Long id) {
 		this.prestataireService.removePrestataire(id);

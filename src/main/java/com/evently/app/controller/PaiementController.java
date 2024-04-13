@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.evently.app.model.Paiement;
 import com.evently.app.service.PaiementService;
 
 @RestController
+@EnableMethodSecurity
 @RequestMapping(path="/api/v1/rest" , name = "evently_app")
 
 public class PaiementController {

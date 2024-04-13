@@ -2,7 +2,6 @@ package com.evently.app.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.evently.app.exception.PrestataireNotFoundException;
@@ -17,11 +16,12 @@ public class PrestataireService {
 		this.prestataireRepository = prestataireRepository;
 	}
 	//Ajout d'un prestataire
-	
+
 	public Prestataire savePrestataire(Prestataire prestataire) {
 		return this.prestataireRepository.save(prestataire);
 	}
 	//afficher la liste des prestataires
+
 	public List<Prestataire>getAllPrestataires(){
 		
 		return this.prestataireRepository.findAll();

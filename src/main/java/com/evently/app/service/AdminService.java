@@ -3,13 +3,15 @@ package com.evently.app.service;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.evently.app.exception.AdminNotFoundException;
 import com.evently.app.model.Admin;
 import com.evently.app.repository.AdminRepository;
 
-@Service 
+@Service
+@RequiredArgsConstructor
 public class AdminService {
 	private AdminRepository adminRepository;
 	
@@ -17,7 +19,7 @@ public class AdminService {
 		this.adminRepository = adminRepository;
 	}
 	//Ajout d'un admin
-	
+
 	public Admin saveAdmin(Admin admin) {
 		return this.adminRepository.save(admin);
 	}
@@ -27,6 +29,7 @@ public class AdminService {
 		return this.adminRepository.findAll();
 	}
 	//Afficher les details d'un admins
+
 	public Optional<Admin>getOneAdmin(Long id){
 		
 Optional<Admin> admin = this.adminRepository.findById(id);
